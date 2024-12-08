@@ -51,7 +51,7 @@ def simple():
             print("File currently unavailable.")
 
 
-    @task
+    @task()
     def insert_mongo(xcom_received, **context):
         dlfileval = context["ti"].xcom_pull(key="dlfile")
         flights.insert_many(dlfileval)
