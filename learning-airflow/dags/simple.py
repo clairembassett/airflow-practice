@@ -47,14 +47,14 @@ def simple():
             r = requests.get("https://s3.amazonaws.com/ds2022-resources/airflow/data/flights.json")
             r.raise_for_status()
             dlfileval = r.json()
-            context["ti"].xcom_push(key="dlfile", value=dlfileval)
+            ti.xcom_push(key="dlfile", value=dlfileval)
         except:
             print("File currently unavailable.")
 
 
-    @task()
+    @task
     def insert_mongo(xcom_received, **context):
-        dlfileval = context["ti"].xcom_pull(key="dlfile")
+        dlfileval = ti.xcom_pull(key="dlfile")
         flights.insert_many(dlfileval)
         print("Flight records added to Mongo")
 
