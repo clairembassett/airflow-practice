@@ -38,6 +38,7 @@ flights = db.flights     # collection
     tags=["example","s3","etl"],
     is_paused_upon_creation=True
 )
+
 def simple():
 
     @task()
@@ -46,7 +47,7 @@ def simple():
             r = requests.get("https://s3.amazonaws.com/ds2022-resources/airflow/data/flights.json")
             r.raise_for_status()
             dlfileval = r.json()
-            context["ti"].xcom_push(key="dlfile", value=dlfileval)
+            ti.xcom_push(key="dlfile", value=dlfileval)
         except:
             print("File currently unavailable.")
 
