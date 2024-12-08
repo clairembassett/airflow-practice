@@ -47,7 +47,7 @@ def simple():
             r = requests.get("https://s3.amazonaws.com/ds2022-resources/airflow/data/flights.json")
             r.raise_for_status()
             dlfileval = r.json()
-            ti.xcom_push(key="dlfile", value=dlfileval)
+            context["ti"].xcom_push(key="dlfile", value=dlfileval)
         except:
             print("File currently unavailable.")
 
